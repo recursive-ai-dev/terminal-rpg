@@ -35,3 +35,27 @@ def test_list_saves(tmp_path):
         saves = list_saves()
         assert len(saves) == 1
         assert saves[0]["filename"] == "save_test.json"
+
+
+def test_path_traversal_prevented(tmp_path):
+    """Ensure path traversal attacks are blocked."""
+    with patch("rpg.systems.save_load.SAVE_DIR", tmp_path):
+        # Attempt to load a file with path traversal
+        result = load_game("../../etc/passwd")
+        assert result is None
+
+        result = load_game("../../../.ssh/id_rsa")
+        assert result is None
+
+        result = load_game("subdir/../../../etc/passwd")
+        assert result is None
+
+
+def test_save_sanitizes_filename(tmp_path):
+    """Ensure save sanitizes filenames."""
+    with patch("rpg.systems.save_load.SAVE_DIR", tmp_path):
+        state = GameState(seed="test")
+        # Attempt to save with path traversal
+        filepath = save_game(state, "../evil.json")
+        # Should be saved within SAVE_DIR, not outside
+        assert str(filepath).startswith(str(tmp_path))

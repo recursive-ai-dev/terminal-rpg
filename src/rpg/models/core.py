@@ -140,6 +140,11 @@ class GameState:
     def to_dict(self) -> dict[str, Any]:
         return {
             "seed": self.seed,
+            "world": self.world.to_dict() if self.world else None,
+            "factions": [f.to_dict() for f in self.factions],
+            "npcs": [n.to_dict() for n in self.npcs],
+            "quests": [q.to_dict() for q in self.quests],
+            "events": [e.to_dict() for e in self.events],
             "player": self.player.to_dict(),
             "event_log": self.event_log,
             "turn_count": self.turn_count,
@@ -148,5 +153,30 @@ class GameState:
 
     @classmethod
     def from_dict(cls, data: dict[str, Any]) -> GameState:
-        data["player"] = Player.from_dict(data.get("player", {}))
-        return cls(**data)
+        # Import here to avoid circular imports
+        from rpg.models.world import WorldMap
+        from rpg.models.faction import Faction
+        from rpg.models.npc import NPC
+        from rpg.models.quest import Quest
+        from rpg.models.event import GameEvent
+
+        state = cls(
+            seed=data.get("seed", ""),
+            player=Player.from_dict(data.get("player", {})),
+            event_log=data.get("event_log", []),
+            turn_count=data.get("turn_count", 0),
+            game_over=data.get("game_over", False),
+        )
+        if data.get("world"):
+            state.world = WorldMap.from_dict(data["world"])
+            # Re-link player location if it was stored as a region ID
+            if state.player.location and isinstance(state.player.location, str):
+                state.player.location = state.world.get_region(state.player.location)
+            elif state.player.location and hasattr(state.player.location, "id"):
+                loc_id = state.player.location.id
+                state.player.location = state.world.get_region(loc_id)
+        state.factions = [Faction.from_dict(f) for f in data.get("factions", [])]
+        state.npcs = [NPC.from_dict(n) for n in data.get("npcs", [])]
+        state.quests = [Quest.from_dict(q) for q in data.get("quests", [])]
+        state.events = [GameEvent.from_dict(e) for e in data.get("events", [])]
+        return state
