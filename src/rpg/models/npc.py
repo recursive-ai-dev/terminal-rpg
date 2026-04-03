@@ -41,6 +41,7 @@ class NPC:
             "inventory": [item.to_dict() for item in self.inventory],
             "dialogue": self.dialogue,
             "is_alive": self.is_alive,
+            "schedule": self.schedule,
         }
 
     @classmethod
