@@ -50,9 +50,30 @@ BIOMES = {
         "poi_types": [],
         "danger_range": (1, 2),
     },
+    "volcanic": {
+        "symbol": "🌋",
+        "color": "red",
+        "description": "Scorched earth with rivers of magma",
+        "poi_types": ["ancient_forge", "ruins", "dungeon"],
+        "danger_range": (7, 10),
+    },
+    "crystal_caves": {
+        "symbol": "💎",
+        "color": "magenta",
+        "description": "Subterranean depths lit by humming crystals",
+        "poi_types": ["mage_tower", "shrine", "dungeon"],
+        "danger_range": (6, 9),
+    },
+    "floating_islands": {
+        "symbol": "☁️",
+        "color": "light_cyan",
+        "description": "Chunks of earth suspended in the sky by ancient magic",
+        "poi_types": ["forgotten_library", "shrine", "ruins"],
+        "danger_range": (5, 8),
+    },
 }
 
-TERRAIN_TYPES = ["flat", "hilly", "rocky", "forested", "marshy", "sandy", "snowy"]
+TERRAIN_TYPES = ["flat", "hilly", "rocky", "forested", "marshy", "sandy", "snowy", "crystalline", "scorched", "floating"]
 
 POI_TYPES = {
     "village": {"symbol": "🏘️", "npc_count_range": (3, 6)},
@@ -60,4 +81,7 @@ POI_TYPES = {
     "ruins": {"symbol": "🏚️", "npc_count_range": (0, 2)},
     "shrine": {"symbol": "⛪", "npc_count_range": (0, 1)},
     "dungeon": {"symbol": "🕳️", "npc_count_range": (0, 1)},
+    "ancient_forge": {"symbol": "⚒️", "npc_count_range": (0, 1)},
+    "mage_tower": {"symbol": "🧙", "npc_count_range": (1, 3)},
+    "forgotten_library": {"symbol": "📚", "npc_count_range": (0, 2)},
 }
