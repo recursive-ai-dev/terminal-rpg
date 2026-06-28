@@ -67,7 +67,8 @@ class ExploreScreen:
         layout["body"].update(body)
         layout["footer"].update(create_event_log(self.state.event_log))
 
-        console.print(layout, clear=True)
+        console.clear()
+        console.print(layout)
 
 
 class DialogueScreen:

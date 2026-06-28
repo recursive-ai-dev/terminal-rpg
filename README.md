@@ -4,12 +4,14 @@ A procedurally generated open world survival RPG that runs entirely in your term
 
 ## Features
 
-- **5-Layer Procedural Generation**: World map → Factions → NPCs → Quests → Events
-- **Seed-Based Worlds**: Share seeds with friends to explore the same world
-- **Rich TUI**: Modern terminal UI with panels, progress bars, and colors
-- **Turn-Based**: Explore at your own pace
-- **Factions**: Dynamic faction relationships affect quests and world events
-- **Quests**: Procedurally generated quests with objectives and rewards
+- **5-Layer Procedural Generation**: World map → Factions → NPCs → Quests → Events. Each world feels handcrafted and rich in lore.
+- **Deep Lore & Biomes**: Explore detailed biomes like Crystal Caves, Floating Islands, and Volcanic regions, complete with unique Points of Interest like ancient forges and mage towers.
+- **Seed-Based Worlds**: Share seeds with friends to explore the same world.
+- **Rich TUI**: Modern terminal UI with panels, progress bars, and colors.
+- **Turn-Based**: Explore at your own pace.
+- **Dynamic Factions**: Nuanced faction relationships (allies, enemies) driven by complex goals like resurrecting ancient gods or monopolizing magical resources. These directly affect quests and world events.
+- **Multi-layered Quests**: Procedurally generated quests with layered objectives, branching from simple fetch tasks to sabotage, diplomacy, assassinations, and relic hunts that shift faction standing.
+- **Legendary Items**: Discover deeply lore-integrated items, artifacts, and weaponry like the Blade of the Fallen King or Tears of the World Tree.
 
 ## Installation
 

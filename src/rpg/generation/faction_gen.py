@@ -21,18 +21,29 @@ FACTION_GOALS = [
     "Destroy a rival faction at all costs",
     "Control the region's sacred sites",
     "Build a network of spies and informants",
+    "Resurrect an ancient and terrible god",
+    "Eradicate magic from the realm",
+    "Unite the divided tribes under one banner",
+    "Monopolize the trade of a rare and magical resource",
 ]
 
 COMPATIBLE_GOALS = [
     ("Dominate all other factions", "Expand territory and establish an empire"),
     ("Protect the innocent and maintain peace", "Preserve balance in the natural world"),
     ("Accumulate wealth and control trade routes", "Serve as mercenaries to the highest bidder"),
+    ("Uncover ancient secrets and forbidden knowledge", "Control the region's sacred sites"),
+    ("Resurrect an ancient and terrible god", "Uncover ancient secrets and forbidden knowledge"),
+    ("Monopolize the trade of a rare and magical resource", "Accumulate wealth and control trade routes"),
 ]
 
 CONFLICTING_GOALS = [
     ("Dominate all other factions", "Protect the innocent and maintain peace"),
     ("Accumulate wealth and control trade routes", "Preserve balance in the natural world"),
     ("Expand territory and establish an empire", "Preserve balance in the natural world"),
+    ("Eradicate magic from the realm", "Uncover ancient secrets and forbidden knowledge"),
+    ("Resurrect an ancient and terrible god", "Protect the innocent and maintain peace"),
+    ("Resurrect an ancient and terrible god", "Preserve balance in the natural world"),
+    ("Eradicate magic from the realm", "Monopolize the trade of a rare and magical resource"),
 ]
 
 

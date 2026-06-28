@@ -35,10 +35,34 @@ QUEST_TEMPLATES = {
         "objective": "Deliver to {target}",
         "xp_base": 25,
     },
+    "sabotage": {
+        "titles": ["Disrupt the {enemy} Operations", "Sabotage at {location}", "Cut their Supplies"],
+        "descriptions": ["The {enemy}s at {location} are getting too strong. Sabotage their camp.", "Sneak into {location} and destroy the {enemy} supplies."],
+        "objective": "Sabotage {target}",
+        "xp_base": 60,
+    },
+    "diplomacy": {
+        "titles": ["A Delicate Matter", "Negotiations with {name}", "The Peace Summit"],
+        "descriptions": ["Travel to {location} and speak with {name} to ease tensions.", "Deliver the treaty to {name} at {location} before it's too late."],
+        "objective": "Negotiate with {name}",
+        "xp_base": 40,
+    },
+    "investigate": {
+        "titles": ["The Mystery of {location}", "Investigate the Ruins", "Whispers in the Dark"],
+        "descriptions": ["Strange noises were heard near {location}. Find out what's happening.", "People have been disappearing near {location}. Investigate the area."],
+        "objective": "Investigate {location}",
+        "xp_base": 35,
+    },
 }
 
-ITEM_TARGETS = ["Ancient Relic", "Rare Herb", "Lost Tome", "Precious Gem", "Stolen Goods", "Magic Crystal"]
-ENEMY_TYPES = ["Bandit", "Monster", "Beast", "Raider", "Undead", "Dark Creature"]
+ITEM_TARGETS = [
+    "Ancient Relic", "Rare Herb", "Lost Tome", "Precious Gem", "Stolen Goods",
+    "Magic Crystal", "Cursed Idol", "Sealed Edict", "Dragon Bone", "Void Essence"
+]
+ENEMY_TYPES = [
+    "Bandit", "Monster", "Beast", "Raider", "Undead", "Dark Creature",
+    "Cultist", "Elemental", "Goblin", "Voidspawn"
+]
 
 
 def generate_quests(
@@ -96,6 +120,7 @@ def generate_quests(
                 location=location_name,
                 count=rng.randint(2, 5),
                 enemy=rng.choice(ENEMY_TYPES),
+                name=giver.name,
             )
 
             danger = region.danger_level if region else 1
@@ -162,18 +187,22 @@ def _generate_faction_quest(
     if not giver:
         return None
 
-    quest_type = rng.choice(["kill", "defend", "fetch"])
+    quest_type = rng.choice(["kill", "defend", "fetch", "assassinate", "relic_hunt"])
 
     titles = {
         "kill": f"For the {faction.name}!",
         "defend": f"Defend {location_name}",
         "fetch": f"Supplies for {faction.name}",
+        "assassinate": f"Eliminate the Rival in {location_name}",
+        "relic_hunt": f"Recover the Ancient Relic for {faction.name}",
     }
 
     descriptions = {
         "kill": f"Eliminate the enemies threatening {faction.name}'s territory.",
         "defend": f"Protect {location_name} from incoming threats.",
         "fetch": f"Gather supplies needed by {faction.name}.",
+        "assassinate": f"A high-value target is hiding in {location_name}. Eliminate them to weaken our rivals.",
+        "relic_hunt": f"An artifact of immense power is hidden in {location_name}. We must secure it before our enemies do.",
     }
 
     return Quest(
@@ -182,9 +211,9 @@ def _generate_faction_quest(
         description=descriptions[quest_type],
         giver_id=giver.id,
         objectives=[Objective(
-            description=f"Complete the {quest_type} objective",
+            description=f"Complete the {quest_type} objective in {location_name}",
             target_id="",
-            target_count=rng.randint(2, 5),
+            target_count=rng.randint(2, 5) if quest_type in ["kill", "fetch"] else 1,
         )],
         rewards={
             "xp": rng.randint(50, 150),
