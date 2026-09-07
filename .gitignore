@@ -5,3 +5,6 @@ dist/
 build/
 .venv/
 .pytest_cache/
+.audit/
+AGENT.md
+rubric.md
